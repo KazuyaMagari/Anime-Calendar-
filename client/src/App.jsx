@@ -3,9 +3,10 @@ import axios from 'axios'
 import './App.css'
 
 function App() {
+  const [data, setData] = useState(null)
   const getData = async () => {
     const res = await axios.get('http://localhost:3001/')
-    console.log(res.data.fruit)
+    setData(res.data);
   }
 
   useEffect(()=>{
@@ -14,7 +15,15 @@ function App() {
 
   return (
     <>
-      
+      {data ? (
+        <ul>
+          {data.map((item, index) => (
+            <li key={index}> ${item.title}</li>
+          ))}
+        </ul>
+      ) : (
+        <p>Loading...</p>
+      )}
     </>
   )
 }
